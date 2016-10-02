@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AForge.Imaging.Filters;
+using Config.TextileRecognizer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,9 +37,9 @@ namespace TextileRecognizer
             {
                 image = Image.FromFile(dialog.FileName);
                 originalImg = new Bitmap(image);
-                if ((originalImg.Height > 1000) || (originalImg.Width > 1000))
+                if ((originalImg.Height > MainConfig.MaxImgHeight) || (originalImg.Width > MainConfig.MaxImgWidth))
                 {
-                    int compression = originalImg.Height > originalImg.Width ? originalImg.Height / 1000 : originalImg.Width / 1000;
+                    int compression = originalImg.Height > originalImg.Width ? originalImg.Height / MainConfig.MaxImgHeight : originalImg.Width / MainConfig.MaxImgWidth;
                     originalImg = new Bitmap(originalImg, new Size(originalImg.Width / compression, originalImg.Height / compression));
                 }
                 pictureBox.Image = originalImg;
